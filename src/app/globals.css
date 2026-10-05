@@ -1,0 +1,150 @@
+@import "tailwindcss";
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource/archivo-narrow/500.css";
+@import "@fontsource/archivo-narrow/600.css";
+@import "@fontsource/archivo-narrow/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+/* Wahid design language (prototype v8):
+   A · concrete light, black ink, black bands — contractor portal and supplier pages.
+   B · graphite #0E0F10, steel-white — the internal desk (platform admin).
+   No accent colour. Archivo Narrow caps headlines · Archivo body · JetBrains Mono labels/UI. */
+:root {
+  color-scheme: light;
+  --bg: #ECECEA;
+  --surface: #F7F7F5;         /* paper */
+  --surface-2: #E4E4E1;
+  --border: #D2D2CE;
+  --border-strong: #BDBDB8;
+  --text: #111110;            /* ink */
+  --ink2: #3B3B39;
+  --muted: #7C7C78;
+  --subtle: #9A9A95;
+  --accent: #111110;          /* monochrome: primary actions are ink */
+  --accent-hover: #333331;
+  --accent-soft: #DCDCD8;
+  --accent-fg: #F7F7F5;
+  --success: #2D6A3E;
+  --success-soft: #E1E8DF;
+  --warn: #8A5A00;
+  --warn-soft: #F1E9D8;
+  --danger: #A3261B;
+  --danger-soft: #F3E1DE;
+  --info: #3B3B39;
+  --info-soft: #E4E4E1;
+  --ai: #111110;
+  --ai-soft: #E4E4E1;
+  --dark: #121211;            /* black bands */
+  --dark-2: #1B1B1A;
+  --on: #ECECEA;
+  --on-muted: #8D8D88;
+  --nav: #F7F7F5;
+  --nav-text: #7C7C78;
+  --nav-active: #111110;
+  --series-1: #111110;
+  --series-2: #8D8D88;
+  --grid: #DEDEDA;
+  --hatch: #EFEFEC;
+}
+
+/* B · graphite, for the internal desk */
+.graphite {
+  color-scheme: dark;
+  --bg: #0E0F10;
+  --surface: #15181A;
+  --surface-2: #1C2023;
+  --border: #262A2D;
+  --border-strong: #3A4146;
+  --text: #E9EEF0;
+  --ink2: #B4BCC0;
+  --muted: #7C868B;
+  --subtle: #5E676B;
+  --accent: #E9EEF0;
+  --accent-hover: #FFFFFF;
+  --accent-soft: #262A2D;
+  --accent-fg: #0E0F10;
+  --success: #9FD7A8;
+  --success-soft: #16261A;
+  --warn: #F0C674;
+  --warn-soft: #2A2416;
+  --danger: #FF8A7A;
+  --danger-soft: #2E1915;
+  --info: #B4BCC0;
+  --info-soft: #1C2023;
+  --ai: #E9EEF0;
+  --ai-soft: #1C2023;
+  --dark: #0B0C0D;
+  --dark-2: #15181A;
+  --on: #E9EEF0;
+  --on-muted: #7C868B;
+  --nav: #0B0C0D;
+  --nav-text: #7C868B;
+  --nav-active: #E9EEF0;
+  --series-1: #E9EEF0;
+  --series-2: #7C868B;
+  --grid: #262A2D;
+  --hatch: #1C2023;
+  background: var(--bg);
+  color: var(--text);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--text);
+  --color-ink2: var(--ink2);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-ai: var(--ai);
+  --color-ai-soft: var(--ai-soft);
+  --color-dark: var(--dark);
+  --color-dark-2: var(--dark-2);
+  --color-on: var(--on);
+  --color-on-muted: var(--on-muted);
+  --color-nav: var(--nav);
+  --color-nav-text: var(--nav-text);
+  --color-nav-active: var(--nav-active);
+  --font-sans: "Archivo Variable", "Archivo", system-ui, sans-serif;
+  --font-narrow: "Archivo Narrow", "Archivo Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--bg); color: var(--text); font: 400 15px/1.55 var(--font-sans); -webkit-font-smoothing: antialiased; }
+/* concrete grain */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .05;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.tabular, .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+/* Labels and UI chrome: JetBrains Mono caps */
+.m { font: 400 11px/1.5 var(--font-mono); letter-spacing: .02em; text-transform: uppercase; }
+.m.lc { text-transform: none; }
+/* Headlines: Archivo Narrow caps */
+.display { font-family: var(--font-narrow); text-transform: uppercase; letter-spacing: -.012em; font-weight: 600; }
+/* drafting grid for graphite panels */
+.drafting { background-image: linear-gradient(#ffffff0b 1px, transparent 1px), linear-gradient(90deg, #ffffff0b 1px, transparent 1px); background-size: 48px 48px; }
+.hatched { background: repeating-linear-gradient(135deg, var(--surface) 0 7px, var(--hatch) 7px 14px); }
+input, select, textarea { font-size: 14px; }
+::selection { background: var(--text); color: var(--surface); }
+:focus-visible { outline: 1.5px solid var(--text); outline-offset: 2px; }
+@media print {
+  .no-print, body::before { display: none !important; }
+  body { background: white; }
+}
