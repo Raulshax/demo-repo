@@ -94,7 +94,7 @@ export default async function SupplierOrder({ params }: { params: Promise<{ id: 
             subtitle={<>Scheduled {date(d.scheduled_date)}{d.vehicle_no ? ` · ${d.vehicle_no}` : ""}{d.verified_at ? ` · verified ${dateTime(d.verified_at)}` : ""}</>}
             actions={d.status === "dispatched" && <ButtonLink size="sm" variant="secondary" href={`/supplier/orders/${id}/delivery/${d.id}`}>Print delivery note & QR</ButtonLink>}>
             {d.status === "dispatched" && d.otp && (
-              <div className="mb-3 flex flex-wrap items-center gap-3 rounded-md border border-accent/30 bg-accent-soft px-3 py-2 text-sm">
+              <div className="mb-3 flex flex-wrap items-center gap-3 border border-accent/30 bg-accent-soft px-3 py-2 text-sm">
                 <span>Delivery code for the driver:</span><span className="font-mono text-lg font-semibold tracking-[0.3em]">{d.otp}</span>
                 <span className="text-xs text-muted">The site enters this code (or scans the QR on the delivery note) to confirm receipt. Do not share it with anyone else.</span>
               </div>

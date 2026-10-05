@@ -21,7 +21,7 @@ export default async function Invoices() {
   return (
     <>
       <PageHeader title="Invoices & payments" subtitle="Every invoice is three-way matched: PO price × quantity accepted on site. Only matched invoices can be approved for payment." />
-      <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="mb-8 grid grid-cols-2 gap-x-5 gap-y-6 lg:grid-cols-4">
         <Stat label="Awaiting approval" value={aed(sum(["matched"]))} />
         <Stat label="Approved, unpaid" value={aed(sum(["approved"]))} />
         <Stat label="Blocked (mismatch / disputed)" value={aed(sum(["mismatch", "disputed"]))} tone="bad" hint="Payment held" />

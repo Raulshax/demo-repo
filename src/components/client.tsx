@@ -41,7 +41,7 @@ export function Flash() {
   if (!shown.ok && !shown.error) return null;
   return (
     <div role="status" className={cx(
-      "mb-4 flex items-start justify-between gap-3 rounded-md border px-3 py-2 text-sm",
+      "mb-4 flex items-start justify-between gap-3 border px-3 py-2 text-sm",
       shown.error ? "border-danger/30 bg-danger-soft text-danger" : "border-success/30 bg-success-soft text-success")}>
       <span>{shown.error ?? shown.ok}</span>
       <button type="button" className="text-xs opacity-70 hover:opacity-100" onClick={() => setShown({ ok: null, error: null })}>Dismiss</button>

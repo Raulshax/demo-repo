@@ -42,7 +42,7 @@ export default async function Approvals() {
                 <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
                   <div className="space-y-3">
                     {p.ai_recommendation?.explanation && <AiPanel title={p.ai_recommendation.headline ?? "Recommendation"}>{p.ai_recommendation.explanation}</AiPanel>}
-                    {p.justification && <div className="rounded-md bg-surface-2 px-3 py-2 text-sm"><span className="text-xs font-medium text-muted">Requester&apos;s justification</span><p>{p.justification}</p></div>}
+                    {p.justification && <div className=" bg-surface-2 px-3 py-2 text-sm"><span className="text-xs font-medium text-muted">Requester&apos;s justification</span><p>{p.justification}</p></div>}
                     {p.ai_recommendation?.ranking && (
                       <Table><thead><tr><Th>Quote</Th><Th right>Comparable total</Th><Th right>Score</Th></tr></thead>
                         <tbody>{p.ai_recommendation.ranking.map((r) => (

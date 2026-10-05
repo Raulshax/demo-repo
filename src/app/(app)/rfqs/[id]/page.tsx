@@ -68,7 +68,7 @@ export default async function RfqPage({ params }: { params: Promise<{ id: string
       {rfq.status === "draft" ? <Recommendations id={id} invites={invites} canWrite={canWrite} quoteDue={rfq.quote_due} /> : (
         <>
           {pr && (
-            <div className={cx("mb-6 rounded-lg border px-4 py-3 text-sm",
+            <div className={cx("mb-6 border px-4 py-3 text-sm",
               pr.status === "approved" ? "border-success/30 bg-success-soft" : pr.status === "rejected" ? "border-danger/30 bg-danger-soft" : "border-warn/30 bg-warn-soft")}>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div><span className="font-medium">Purchase request · {aed(pr.amount)} with {pr.supplier}</span> <StatusBadge status={pr.status} />
@@ -132,13 +132,13 @@ function Recommendations({ id, invites, canWrite, quoteDue }: { id: string; invi
       </AiPanel>
       <Card title="Recommended" padded={false}>{rec.length ? rec.map((i) => <Row key={i.supplier_org_id} i={i} />) : <div className="p-4 text-sm text-muted">No suitable suppliers found - check categories or add suppliers manually below.</div>}</Card>
       {others.length > 0 && (
-        <details className="rounded-lg border border-line bg-surface">
+        <details className=" border border-line bg-surface">
           <summary className="cursor-pointer px-4 py-3 text-sm font-medium">Other eligible suppliers ({others.length})</summary>
           <div className="border-t border-line">{others.map((i) => <Row key={i.supplier_org_id} i={i} />)}</div>
         </details>
       )}
       {canWrite && (
-        <div className="flex flex-wrap items-end gap-3 rounded-lg border border-line bg-surface px-4 py-3">
+        <div className="flex flex-wrap items-end gap-3 border border-line bg-surface px-4 py-3">
           <Field label="Quotes due"><Input type="date" name="quote_due" defaultValue={quoteDue ?? ""} /></Field>
           <div className="ml-auto flex gap-2">
             <SubmitButton formAction={refreshRecommendations.bind(null, id)} variant="secondary" formNoValidate>Re-run matching</SubmitButton>
@@ -162,10 +162,10 @@ function Comparison({ id, cmp, quoteMeta, canRequest }: {
       <AiPanel title={c.headline} footer={<>Generated {dateTime(c.generatedAt)} from {evals.length} quote(s). Totals are compared like-for-like: lines a supplier did not quote are priced at the best competing price. The AI recommends; a procurement manager approves.</>}>
         <p>{c.explanation}</p>
         <div className="mt-3 flex flex-wrap gap-2">
-          {c.savings.vsSecond !== null && c.savings.vsSecond > 0 && <Badge tone="success">Saves {aed(c.savings.vsSecond)} vs next best</Badge>}
-          {c.savings.vsHighest > 0 && <Badge tone="success">{aed(c.savings.vsHighest)} below highest quote</Badge>}
-          {c.savings.vsBenchmark !== null && <Badge tone={c.savings.vsBenchmark <= 0 ? "success" : "warn"}>{c.savings.vsBenchmark <= 0 ? `${Math.abs(c.savings.vsBenchmark).toFixed(1)}% below market` : `${c.savings.vsBenchmark.toFixed(1)}% above market`}</Badge>}
-          {c.splitAward && <Badge tone="info">Split award option saves {aed(c.splitAward.saving)}</Badge>}
+          {c.savings.vsSecond !== null && c.savings.vsSecond > 0 && <Badge tone="onDark">Saves {aed(c.savings.vsSecond)} vs next best</Badge>}
+          {c.savings.vsHighest > 0 && <Badge tone="onDark">{aed(c.savings.vsHighest)} below highest quote</Badge>}
+          {c.savings.vsBenchmark !== null && <Badge tone="onDark">{c.savings.vsBenchmark <= 0 ? `${Math.abs(c.savings.vsBenchmark).toFixed(1)}% below market` : `${c.savings.vsBenchmark.toFixed(1)}% above market`}</Badge>}
+          {c.splitAward && <Badge tone="onDark">Split award option saves {aed(c.splitAward.saving)}</Badge>}
         </div>
       </AiPanel>
 
@@ -174,7 +174,7 @@ function Comparison({ id, cmp, quoteMeta, canRequest }: {
           const meta = quoteMeta.find((q) => q.id === e.quoteId);
           const best = e.quoteId === c.recommendedQuoteId;
           return (
-            <div key={e.quoteId} className={cx("rounded-lg border bg-surface p-4", best ? "border-ai ring-1 ring-ai/40" : "border-line", !e.eligible && "opacity-75")}>
+            <div key={e.quoteId} className={cx("border bg-surface p-4", best ? "border-2 border-ink" : "border-line", !e.eligible && "opacity-75")}>
               <div className="flex items-start justify-between gap-2">
                 <div><div className="text-xs text-muted">#{rank + 1}</div><div className="font-semibold">{e.supplierName}</div></div>
                 {best ? <Badge tone="ai">Recommended</Badge> : !e.eligible ? <Badge tone="danger">Non-compliant</Badge> : null}
@@ -234,7 +234,7 @@ function Comparison({ id, cmp, quoteMeta, canRequest }: {
           <form action={requestApprovalAction.bind(null, id)} className="space-y-3">
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {evals.map((e) => (
-                <label key={e.quoteId} className={cx("flex items-center gap-3 rounded-md border px-3 py-2", e.eligible ? "border-line-strong" : "border-line opacity-50")}>
+                <label key={e.quoteId} className={cx("flex items-center gap-3 border px-3 py-2", e.eligible ? "border-line-strong" : "border-line opacity-50")}>
                   <input type="radio" name="quote_id" value={e.quoteId} defaultChecked={e.quoteId === c.recommendedQuoteId} disabled={!e.eligible} required className="accent-[var(--accent)]" />
                   <span className="text-sm"><span className="font-medium">{e.supplierName}</span><span className="block text-xs text-muted">{aed(e.quotedTotal)}{e.quoteId === c.recommendedQuoteId ? " · AI recommended" : ""}</span></span>
                 </label>

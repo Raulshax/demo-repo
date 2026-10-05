@@ -100,7 +100,7 @@ export default async function Intelligence({ searchParams }: { searchParams: Pro
   return (
     <>
       <PageHeader title="Procurement intelligence" subtitle="What you spend, what you saved, what the market is doing and how suppliers perform - built from your own transactions and the anonymised network." />
-      <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4 xl:grid-cols-6">
+      <div className="mb-8 grid grid-cols-2 gap-x-5 gap-y-6 lg:grid-cols-4 xl:grid-cols-6">
         <Stat label="Spend, 12 months" value={aed(k.spend)} hint={`${k.pos} purchase orders`} />
         <Stat label="Saved vs highest quote" value={aed(k.quote_saving)} hint="Competitive tendering" tone="good" />
         <Stat label="Saved vs market benchmark" value={aed(k.bench_saving)} hint={k.spend ? `${((k.bench_saving / k.spend) * 100).toFixed(1)}% of spend` : undefined} tone={k.bench_saving >= 0 ? "good" : "bad"} />
@@ -114,7 +114,7 @@ export default async function Intelligence({ searchParams }: { searchParams: Pro
           <AiPanel title={`${d.insights.length} savings & risk opportunities`} footer={`Combined measurable savings to date: ${aed(totalSaving)}. Opportunities are suggestions - nothing is purchased automatically.`}>
             <ul className="mt-1 grid gap-3 md:grid-cols-2">
               {d.insights.map((x, i) => (
-                <li key={i} className="rounded-md border border-line bg-surface px-3 py-2">
+                <li key={i} className="border border-line bg-surface px-3 py-2 text-ink">
                   <div className="flex items-start justify-between gap-2">
                     <span className="text-sm font-medium">{x.href ? <Link href={x.href} className="hover:text-accent">{x.title}</Link> : x.title}</span>
                     <Badge tone={x.tone}>{x.tone === "danger" ? "Risk" : x.tone === "warn" ? "Overpaid" : "Opportunity"}</Badge>

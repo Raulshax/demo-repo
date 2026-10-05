@@ -49,7 +49,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
     <>
       <PageHeader title={project.name} crumbs={[{ href: "/projects", label: "Projects" }, { href: `/projects/${id}`, label: project.code }]}
         subtitle={<>{project.location} · {project.client_name ?? "—"} · <StatusBadge status={project.status} /></>} />
-      <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="mb-8 grid grid-cols-2 gap-x-5 gap-y-6 lg:grid-cols-4">
         <Stat label="Committed (POs)" value={aed(committed)} hint={project.budget_aed ? `${Math.round((committed / project.budget_aed) * 100)}% of ${aed(project.budget_aed)} budget` : undefined} />
         <Stat label="Requirements to review" value={drafts.length} hint={drafts.length ? "AI-extracted, unconfirmed" : "None"} />
         <Stat label="Confirmed, not sourced" value={confirmed.length} hint={earliest ? `Earliest needed in ${daysFromToday(earliest)} days` : undefined} tone={earliest && (daysFromToday(earliest) ?? 99) < 7 ? "bad" : "neutral"} />

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { BRAND, LogoMark } from "@/components/ui";
 import { getSession } from "@/lib/auth";
 import { LoginForm } from "./form";
 
@@ -7,27 +8,37 @@ export const metadata = { title: "Sign in" };
 export default async function LoginPage() {
   if (await getSession()) redirect("/dashboard");
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-accent"><Logo /><span className="text-lg font-semibold text-ink">ProcureOS</span></div>
-        <h1 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight">
-          The AI procurement operating system for construction.
-        </h1>
-        <p className="mt-2 max-w-2xl text-muted">
-          From project demand to the best supplier, best price, completed delivery and procurement intelligence. AI recommends - people approve.
-        </p>
+    <main className="min-h-screen">
+      <section className="bg-dark text-on">
+        <div className="mx-auto max-w-[1360px] px-[clamp(16px,3.2vw,48px)]">
+          <div className="flex h-[72px] items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <LogoMark />
+              <span className="text-[17px] font-bold uppercase tracking-[.06em] [font-stretch:125%] [font-variation-settings:'wdth'_125]">{BRAND}</span>
+            </div>
+            <span className="m text-on-muted">[ Procurement desk · Dubai · MEP &amp; fit-out ]</span>
+          </div>
+          <h1 className="display pt-16 pb-10 text-[clamp(50px,9.4vw,150px)] leading-[0.88] font-semibold">
+            Send the BOQ.<br />We buy it better.
+          </h1>
+          <div className="grid gap-5 border-t border-[#4a4a46] py-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["01", "AI reads your BOQ and normalises every line to the material database"],
+              ["02", "3–5 suppliers recommended per RFQ; quotes compared like-for-like"],
+              ["03", "Manager approval issues the PO - AI recommends, people decide"],
+              ["04", "Site verifies by OTP or QR; invoices matched to what arrived"],
+            ].map(([n, t]) => (
+              <div key={n}>
+                <div className="m text-on-muted">↗ {n}</div>
+                <p className="mt-2 text-[14px] leading-snug text-on">{t}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <div className="mx-auto max-w-[1360px] px-[clamp(16px,3.2vw,48px)] py-12">
+        <LoginForm />
       </div>
-      <LoginForm />
     </main>
-  );
-}
-
-function Logo() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
-      <rect width="32" height="32" rx="7" fill="currentColor" />
-      <path d="M9 22V10h7.5a4.5 4.5 0 010 9H13" stroke="white" strokeWidth="2.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="21.5" cy="22" r="2" fill="white" />
-    </svg>
   );
 }

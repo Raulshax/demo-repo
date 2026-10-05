@@ -69,7 +69,7 @@ export default async function OrderPage({ params, searchParams }: { params: Prom
         <Card title="Order">
           <KeyValue items={[["Deliver to", po.delivery_location ?? "—"], ["Required", date(po.required_date)], ["Supplier promised", date(po.promised_date)],
             ["Payment terms", po.payment_terms ?? "—"], ["Approved by", po.approver ?? "—"], ["Supplier confirmed", po.confirmed_at ? dateTime(po.confirmed_at) : "Awaiting"]]} />
-          {po.supplier_note && <p className="mt-3 rounded bg-surface-2 px-2 py-1.5 text-xs">Supplier: “{po.supplier_note}”</p>}
+          {po.supplier_note && <p className="mt-3 bg-surface-2 px-2 py-1.5 text-xs">Supplier: “{po.supplier_note}”</p>}
         </Card>
       </div>
 
@@ -99,7 +99,7 @@ export default async function OrderPage({ params, searchParams }: { params: Prom
               )}
               {dDocs.length > 0 && (
                 <div className={cx("flex flex-wrap gap-2", verifying ? "border-t border-line px-4 py-3" : "mt-3")}>
-                  {dDocs.map((x) => <a key={x.id} href={`/api/files/delivery/${x.id}`} target="_blank" className="rounded border border-line px-2 py-1 text-xs hover:border-accent">{x.kind === "photo" ? "📷" : "📄"} {x.filename}</a>)}
+                  {dDocs.map((x) => <a key={x.id} href={`/api/files/delivery/${x.id}`} target="_blank" className=" border border-line px-2 py-1 text-xs hover:border-accent">{x.kind === "photo" ? "📷" : "📄"} {x.filename}</a>)}
                 </div>
               )}
             </Card>
@@ -165,7 +165,7 @@ function VerifyForm({ orderId, d, items, qr }: { orderId: string; d: Delivery; q
       </Table>
       <div className="grid gap-4 px-4 py-4 md:grid-cols-2 xl:grid-cols-4">
         {viaQr ? (
-          <div className="rounded-md border border-success/30 bg-success-soft px-3 py-2 text-sm text-success">
+          <div className=" border border-success/30 bg-success-soft px-3 py-2 text-sm text-success">
             <input type="hidden" name="method" value="qr" /><input type="hidden" name="qr_token" value={qr} />
             ✓ Delivery note QR scanned
           </div>

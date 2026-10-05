@@ -1,4 +1,6 @@
-# ProcureOS — AI procurement operating system for construction
+# Wahid — AI procurement for Dubai contractors
+
+_Backend: the ProcureOS procurement engine. Design: the Wahid prototype v8 language (concrete light + black bands for the portal, graphite for the internal desk; Archivo Narrow caps, Archivo, JetBrains Mono; no accent colour)._
 
 From project demand to the best supplier, best price, completed delivery and procurement intelligence.
 Initial market: medium-sized contractors in Dubai / UAE, MEP materials first.

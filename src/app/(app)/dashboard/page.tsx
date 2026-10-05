@@ -15,7 +15,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
   const { denied } = await searchParams;
   return (
     <>
-      {denied && <div className="mb-4 rounded-md border border-warn/30 bg-warn-soft px-3 py-2 text-sm text-warn">That page is not available for your role.</div>}
+      {denied && <div className="mb-4 border border-warn/30 bg-warn-soft px-3 py-2 text-sm text-warn">That page is not available for your role.</div>}
       {user.orgKind === "supplier" ? <SupplierDashboard user={user} /> : <ContractorDashboard user={user} />}
     </>
   );
@@ -90,10 +90,10 @@ async function ContractorDashboard({ user }: { user: SessionUser }) {
   const { tasks, k } = data;
   return (
     <>
-      <PageHeader title={`Good ${greeting()}, ${user.fullName.split(" ")[0]}`}
-        subtitle={<>What needs your attention today · {user.orgName}</>}
-        actions={user.role !== "contractor_exec" && <ButtonLink href="/projects">Upload a BOQ</ButtonLink>} />
-      <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <PageHeader title="Today" crumbs={[{ href: "/dashboard", label: user.orgName }]}
+        subtitle={<>Good {greeting()}, {user.fullName.split(" ")[0]} - here is what needs your attention.</>}
+        actions={user.role !== "contractor_exec" && <ButtonLink href="/projects">+ New BOQ</ButtonLink>} />
+      <div className="mb-8 grid grid-cols-2 gap-x-5 gap-y-6 lg:grid-cols-4">
         <Stat label="Spend, last 30 days" value={aed(k.spend_30)} />
         <Stat label="Open orders" value={num(k.open_pos)} hint={aed(k.open_value)} />
         <Stat label="On-time delivery" value={k.on_time === null ? "—" : `${Math.round(k.on_time * 100)}%`} hint={`${k.deliveries} verified deliveries`} tone={k.on_time !== null && k.on_time >= 0.9 ? "good" : "bad"} />
@@ -105,7 +105,7 @@ async function ContractorDashboard({ user }: { user: SessionUser }) {
             {tasks.map((t, i) => (
               <li key={i}>
                 <Link href={t.href} className="flex flex-wrap items-center gap-3 px-4 py-3 hover:bg-surface-2">
-                  <Badge tone={t.tone} className="w-32 justify-center">{t.tag}</Badge>
+                  <Badge tone={t.tone === "danger" || t.tone === "ai" ? "ai" : t.tone === "warn" ? "warn" : "accent"} className="w-36 justify-center">{t.tag}</Badge>
                   <div className="min-w-0 flex-1">
                     <div className="truncate text-sm font-medium text-ink">{t.title}</div>
                     <div className="truncate text-xs text-muted">{t.detail}</div>
@@ -141,8 +141,8 @@ async function SupplierDashboard({ user }: { user: SessionUser }) {
   }));
   return (
     <>
-      <PageHeader title={user.orgName} subtitle="Your RFQs, orders and deliveries" />
-      <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <PageHeader title="Today" crumbs={[{ href: "/dashboard", label: user.orgName }]} subtitle="Your RFQs, orders and deliveries. Contractors never see other suppliers' prices, and neither do you." />
+      <div className="mb-8 grid grid-cols-2 gap-x-5 gap-y-6 lg:grid-cols-4">
         <Stat label="Open RFQs" value={d.rfqs.length} />
         <Stat label="Win rate" value={d.k.quoted ? `${Math.round((d.k.won / d.k.quoted) * 100)}%` : "—"} hint={`${d.k.won} of ${d.k.quoted} quotes`} />
         <Stat label="Orders, 90 days" value={aed(d.k.revenue)} />

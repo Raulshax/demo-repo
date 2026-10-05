@@ -29,7 +29,7 @@ export default async function DeliveryNote({ params }: { params: Promise<{ id: s
   const qr = await QRCode.toDataURL(url, { margin: 1, width: 220 });
 
   return (
-    <div className="mx-auto max-w-3xl rounded-lg border border-line bg-white p-8 text-black">
+    <div className="mx-auto max-w-3xl border border-line bg-white p-8 text-black">
       <div className="flex items-start justify-between gap-6">
         <div>
           <div className="text-xs uppercase tracking-wide text-gray-500">Delivery note</div>
@@ -49,7 +49,7 @@ export default async function DeliveryNote({ params }: { params: Promise<{ id: s
         <thead><tr className="border-b border-gray-300 text-left"><th className="py-2">Material</th><th className="py-2 text-right">Quantity</th><th className="py-2 text-right">Received</th></tr></thead>
         <tbody>{items.map((i, k) => <tr key={k} className="border-b border-gray-200"><td className="py-2">{i.description}</td><td className="py-2 text-right">{num(i.qty_shipped)} {i.unit}</td><td className="py-2 text-right">________</td></tr>)}</tbody>
       </table>
-      <div className="mt-6 rounded border border-gray-300 p-3 text-sm">
+      <div className="mt-6 border border-gray-300 p-3 text-sm">
         Driver&apos;s delivery code: <span className="font-mono text-lg font-semibold tracking-[0.3em]">{d.otp}</span>
         <div className="text-xs text-gray-500">Give this code to the site engineer only once the goods are offloaded and counted.</div>
       </div>

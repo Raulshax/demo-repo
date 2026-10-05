@@ -11,7 +11,7 @@ export interface EditorRow {
 }
 export interface MaterialOption { id: string; name: string; category_code: string; base_unit: string }
 
-const input = "w-full rounded border border-line-strong bg-surface px-1.5 py-1 text-sm focus:border-accent focus:outline-none";
+const input = "w-full border border-line-strong bg-surface px-1.5 py-1 text-sm focus:border-accent focus:outline-none";
 
 export function RequirementsEditor({ rows: initial, materials, categories, action, readOnly }: {
   rows: EditorRow[]; materials: MaterialOption[]; categories: Record<string, string>;

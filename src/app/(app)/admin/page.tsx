@@ -33,7 +33,7 @@ export default async function Admin() {
   return (
     <>
       <PageHeader title="Platform overview" subtitle="Transactions, network health and disputes across all tenants." />
-      <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="mb-8 grid grid-cols-2 gap-x-5 gap-y-6 lg:grid-cols-4">
         <Stat label="Order value, 12 months" value={aed(d.k.gmv)} />
         <Stat label="Organisations" value={`${d.k.contractors} / ${d.k.suppliers}`} hint="contractors / suppliers" />
         <Stat label="RFQ response rate" value={d.k.response === null ? "—" : `${Math.round(d.k.response * 100)}%`} hint={`${num(d.k.rfqs)} RFQs sent`} />

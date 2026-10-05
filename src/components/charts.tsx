@@ -7,7 +7,7 @@ const compact = (n: number) => (n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3
 
 function Tip({ x, y, children }: { x: number; y: number; children: React.ReactNode }) {
   return (
-    <div role="tooltip" className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-md border border-line bg-surface px-2 py-1 text-xs shadow-sm"
+    <div role="tooltip" className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full border border-line bg-surface px-2 py-1 text-xs shadow-sm"
       style={{ left: x, top: y - 8 }}>{children}</div>
   );
 }
@@ -19,11 +19,11 @@ export function BarList({ data, valueLabel = fmtAed }: { data: { label: string; 
   return (
     <ul className="space-y-2" onPointerLeave={() => setHover(null)}>
       {data.map((d, i) => (
-        <li key={d.label} className="grid grid-cols-[140px_1fr_96px] items-center gap-3 text-sm" onPointerEnter={() => setHover(i)}
+        <li key={d.label} className="grid grid-cols-[140px_1fr_auto] items-center gap-3 text-sm" onPointerEnter={() => setHover(i)}
           tabIndex={0} onFocus={() => setHover(i)} aria-label={`${d.label}: ${valueLabel(d.value)}`}>
           <span className="truncate text-muted">{d.label}</span>
           <span className="relative h-4">
-            <span className="absolute inset-y-0 left-0 rounded-r-[4px]" style={{ width: `${Math.max((d.value / max) * 100, 0.5)}%`, background: "var(--series-1)", opacity: hover === null || hover === i ? 1 : 0.55 }} />
+            <span className="absolute inset-y-0 left-0-r-[4px]" style={{ width: `${Math.max((d.value / max) * 100, 0.5)}%`, background: "var(--series-1)", opacity: hover === null || hover === i ? 1 : 0.55 }} />
           </span>
           <span className="text-right tabular text-ink">{valueLabel(d.value)}{hover === i && d.detail && <span className="block text-[11px] text-muted">{d.detail}</span>}</span>
         </li>
@@ -54,7 +54,7 @@ export function Columns({ data, height = 180 }: { data: { label: string; value: 
             <g key={d.label}>
               <rect x={pad.l + i * bw} y={pad.t} width={bw} height={H - pad.t - pad.b} fill="transparent"
                 onPointerMove={() => { const r = ref.current!.getBoundingClientRect(); setTip({ i, x: ((x + bw / 2) / W) * r.width, y: (y(d.value) / H) * r.height }); }} />
-              {d.value > 0 && <path d={roundedTop(x, y(d.value), bw - 4, h, 4)} fill="var(--series-1)" opacity={tip && tip.i !== i ? 0.55 : 1} pointerEvents="none" />}
+              {d.value > 0 && <path d={roundedTop(x, y(d.value), bw - 4, h, 0)} fill="var(--series-1)" opacity={tip && tip.i !== i ? 0.55 : 1} pointerEvents="none" />}
               <text x={x + (bw - 4) / 2} y={H - 6} textAnchor="middle" fontSize="10" fill="var(--subtle)">{d.label}</text>
             </g>
           );
@@ -94,7 +94,7 @@ export function PriceTrend({ market, paid, unit }: { market: { month: string; va
     <div>
       <div className="mb-2 flex flex-wrap gap-4 text-xs text-muted">
         <span className="flex items-center gap-1.5"><span className="inline-block h-0.5 w-4" style={{ background: "var(--series-1)" }} />Network market median</span>
-        <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: "var(--series-2)" }} />Your purchase prices</span>
+        <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5" style={{ background: "var(--series-2)" }} />Your purchase prices</span>
       </div>
       <div ref={ref} className="relative" onPointerMove={onMove} onPointerLeave={() => setHi(null)}>
         <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Price trend">

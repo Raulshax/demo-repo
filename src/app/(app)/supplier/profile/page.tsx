@@ -65,13 +65,13 @@ export default async function SupplierProfile() {
             <form action={updateProfile} className="space-y-3">
               <Field label="Description"><Textarea name="description" defaultValue={d.p.description ?? ""} /></Field>
               <Field label="Categories supplied">
-                <div className="grid grid-cols-1 gap-1 rounded-md border border-line p-2 text-sm">
+                <div className="grid grid-cols-1 gap-1 border border-line p-2 text-sm">
                   {d.categories.filter((c) => c.parent_code || !d.categories.some((x) => x.parent_code === c.code)).map((c) => (
                     <label key={c.code} className="flex items-center gap-2"><input type="checkbox" name="categories" value={c.code} defaultChecked={d.p.categories.includes(c.code)} className="accent-[var(--accent)]" />{c.name}</label>))}
                 </div>
               </Field>
               <Field label="Delivery areas">
-                <div className="grid grid-cols-2 gap-1 rounded-md border border-line p-2 text-sm">
+                <div className="grid grid-cols-2 gap-1 border border-line p-2 text-sm">
                   {EMIRATES.map((e) => <label key={e} className="flex items-center gap-2"><input type="checkbox" name="emirates" value={e} defaultChecked={d.p.emirates.includes(e)} className="accent-[var(--accent)]" />{e}</label>)}
                 </div>
               </Field>

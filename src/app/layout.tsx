@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "ProcureOS", template: "%s · ProcureOS" },
-  description: "AI procurement operating system for construction - from project demand to the best supplier, best price and completed delivery.",
+  title: { default: "Wahid", template: "%s · Wahid" },
+  description: "Procurement for Dubai contractors. Send the BOQ - AI matches suppliers, compares quotes and tracks delivery; people approve.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
