@@ -1,7 +1,7 @@
 import "server-only";
 import { createHash, randomBytes } from "node:crypto";
 import bcrypt from "bcryptjs";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 import { type Actor, type OrgKind, type Role, one, withActor } from "./db";
@@ -28,11 +28,17 @@ export async function login(email: string, password: string): Promise<Role | nul
     const token = randomBytes(32).toString("base64url");
     await tx.query("select auth_create_session($1, $2, $3)", [u.id, hash(token), TTL_HOURS]);
     (await cookies()).set(COOKIE, token, {
-      httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production",
+      // Secure only when actually served over HTTPS: browsers drop Secure cookies on plain http://localhost.
+      httpOnly: true, sameSite: "lax", secure: await isHttps(),
       path: "/", maxAge: TTL_HOURS * 3600,
     });
     return u.role;
   });
+}
+
+async function isHttps() {
+  const h = await headers();
+  return (h.get("x-forwarded-proto") ?? "").split(",")[0].trim() === "https";
 }
 
 export async function logout() {
